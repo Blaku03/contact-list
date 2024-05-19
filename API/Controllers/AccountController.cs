@@ -38,7 +38,6 @@ public class AccountController : ControllerBase
 
         var user = _mapper.Map<User>(registerDto);
 
-        user.UserName = registerDto.UserName.ToLower();
         user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password));
         user.PasswordSalt = hmac.Key;
 
@@ -80,7 +79,7 @@ public class AccountController : ControllerBase
     private async Task<bool> UserNameExists(string username)
     {
         return await _context.Users.AnyAsync(
-            x => x.UserName == username.ToLower());
+            x => x.UserName == username);
     }
 
     private async Task<bool> EmailExists(string email)

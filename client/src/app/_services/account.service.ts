@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, map} from "rxjs";
+import {BehaviorSubject, catchError, map, throwError} from "rxjs";
 import {User} from "../_models/user";
+import {UserLogin} from "../_models/userLogin";
 
 @Injectable({
   providedIn: 'root'
@@ -19,13 +20,17 @@ export class AccountService {
     this.currentUserSource.next(user);
   }
 
-  login(model: any) {
-    return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
+  login(userCreds: UserLogin) {
+    return this.http.post<User>(this.baseUrl + 'account/login', userCreds).pipe(
       map((response: User) => {
         const user = response;
         if (user) {
           this.setCurrentUser(user);
         }
+      }),
+      catchError(error => {
+        console.log(error);
+        return throwError('Login attempt was unsuccessful');
       })
     );
   }

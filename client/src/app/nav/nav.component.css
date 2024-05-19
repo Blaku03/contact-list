@@ -1,0 +1,22 @@
+.user-info-container {
+  display: flex;
+  align-items: center;
+}
+
+.welcome-text {
+  color: #ffffff;
+  margin-right: 15px;
+  font-weight: 500;
+}
+
+.logout-button {
+  margin-left: 10px;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #ffffff;
+  color: #000000;
+}

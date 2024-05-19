@@ -2,15 +2,16 @@
   <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
       <div class="text-start">
-        <h2>Contact-lists</h2>
+        <h2><a routerLink="/users" class="text-reset text-decoration-none">Contact-lists</a></h2>
       </div>
       <div class="ms-auto text-end" *ngIf="!(accountService.currentUser$ | async)">
-        <button type="button" class="btn btn-outline-light me-2">Login</button>
-        <button type="button" class="btn btn-warning">Sign-up</button>
+        <button type="button" class="btn btn-outline-light me-2" routerLink="/login" routerLinkActive="acitve">Login
+        </button>
+        <button type="button" class="btn btn-warning" routerLink="/register" routerLinkActive="active">Sign-up</button>
       </div>
-      <div class="ms-auto text-end" *ngIf="(accountService.currentUser$ | async) as user">
-        <a class="text-light ms-2">Welcome {{ user.userName }}</a>
-        <a class="btn btn-outline-light me-2" (click)="logout()">Logout</a>
+      <div class="user-info-container ms-auto text-end" *ngIf="(accountService.currentUser$ | async) as user">
+        <span class="welcome-text">Welcome, {{ user.userName }}</span>
+        <button class="btn btn-outline-light logout-button" (click)="logout()">Logout</button>
       </div>
 
     </div>
