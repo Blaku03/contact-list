@@ -6,8 +6,8 @@ export interface DetailedUserData {
   surname: string;
   email: string;
   phoneNumber: string;
-  birthDate: Date;
+  dateOfBirth: Date;
   category: Category;
-  subcategory?: string
+  subCategory?: string
 }
 

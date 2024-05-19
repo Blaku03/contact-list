@@ -1,1 +1,17 @@
-<p>user-view works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card" *ngIf="(userData)">
+        <div class="card-body">
+          <h5 class="card-title">{{ userData.userName }}</h5>
+          <p class="card-text">{{ userData.name }} {{ userData.surname }}</p>
+          <p class="card-text"><strong>Email:</strong> {{ userData.email }}</p>
+          <p class="card-text"><strong>Phone Number:</strong> {{ userData.phoneNumber }}</p>
+          <p class="card-text"><strong>Birth Date:</strong> {{ userData.dateOfBirth | date }}</p>
+          <p class="card-text"><strong>Category:</strong> {{ userData.category }}</p>
+          <p class="card-text" *ngIf="userData.subCategory"><strong>Subcategory:</strong> {{ userData.subCategory }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

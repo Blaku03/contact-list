@@ -31,7 +31,8 @@ public class UsersController : ControllerBase
         {
             user = await _userRepository.GetDetailedUserDataByIdAsync(id);
         }
-
+        
+        // If the query is not an integer, it is a username
         user ??= await _userRepository.GetDetailedUserDataByUserNameAsync(query);
 
         if (user == null)

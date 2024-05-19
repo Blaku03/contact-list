@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {environmentDev} from "../../../environment/environment.development";
 import {BasicUserData} from "../../_models/basicUserData";
 import {AccountService} from "../../_services/account.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-album',
@@ -14,7 +15,7 @@ export class UserAlbumComponent implements OnInit {
   baseUrl = environmentDev.apiUrl;
   allUsers: BasicUserData[] = [];
 
-  constructor(private http: HttpClient, public accountService: AccountService) {
+  constructor(private http: HttpClient, public accountService: AccountService, private router: Router) {
   }
 
   ngOnInit() {
@@ -25,5 +26,9 @@ export class UserAlbumComponent implements OnInit {
     this.http.get(this.baseUrl + 'users').subscribe(users => {
       this.allUsers = users as BasicUserData[];
     });
+  }
+
+  viewUser(userName: string) {
+    this.router.navigate(['/users/', userName]);
   }
 }

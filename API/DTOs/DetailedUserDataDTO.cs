@@ -12,5 +12,5 @@ public class DetailedUserDataDTO
     public string Category { get; set; }
     public string SubCategory { get; set; }
     public string PhoneNumber { get; set; }
-    public DateTime BirthDate { get; set; }
+    public DateOnly DateOfBirth { get; set; }
 }
