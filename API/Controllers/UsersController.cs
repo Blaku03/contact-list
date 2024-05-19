@@ -1,7 +1,7 @@
-﻿using API.Data;
-using API.Entities;
+﻿using API.DTOs;
+using API.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
@@ -9,22 +9,36 @@ namespace API.Controllers;
 [Route("api/[controller]")]
 public class UsersController : ControllerBase
 {
-    private readonly DataContext _context;
+    private readonly IUserRepository _userRepository;
 
-    public UsersController(DataContext context)
+    public UsersController(IUserRepository userRepository)
     {
-        _context = context;
+        _userRepository = userRepository;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+    public async Task<ActionResult<IEnumerable<BasicUserDataDTO>>> GetUsers()
     {
-        return await _context.Users.ToListAsync();
+        return Ok(await _userRepository.GetUsersBasicDataAsync());
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<User>> GetUser(int id)
+    [Authorize]
+    [HttpGet("{query}")] // api/users/{id or username}
+    public async Task<ActionResult<DetailedUserDataDTO>> GetUser(string query)
     {
-        return await _context.Users.FindAsync(id);
+        DetailedUserDataDTO? user = null;
+        if (int.TryParse(query, out int id))
+        {
+            user = await _userRepository.GetDetailedUserDataByIdAsync(id);
+        }
+
+        user ??= await _userRepository.GetDetailedUserDataByUserNameAsync(query);
+
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        return user;
     }
 }
