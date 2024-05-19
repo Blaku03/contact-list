@@ -10,9 +10,9 @@ import {JwtInterceptor} from "./_interceptors/jwt.interceptor";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RegisterComponent} from './register/register.component';
 import {LoginComponent} from './login/login.component';
-import { UserAlbumComponent } from './users/user-album/user-album.component';
-import { UserViewComponent } from './users/user-view/user-view.component';
-import {NgOptimizedImage} from "@angular/common";
+import {UserAlbumComponent} from './users/user-album/user-album.component';
+import {UserViewComponent} from './users/user-view/user-view.component';
+import {BsDropdownModule} from "ngx-bootstrap/dropdown";
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import {NgOptimizedImage} from "@angular/common";
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    NgOptimizedImage
+    BsDropdownModule,
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]

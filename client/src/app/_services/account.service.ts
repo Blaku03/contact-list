@@ -4,6 +4,7 @@ import {BehaviorSubject, catchError, map, throwError} from "rxjs";
 import {User} from "../_models/user";
 import {UserLogin} from "../_models/userLogin";
 import {environmentDev} from "../../environment/environment.development";
+import {UserRegister} from "../_models/userRegister";
 
 @Injectable({
   providedIn: 'root'
@@ -36,8 +37,8 @@ export class AccountService {
     );
   }
 
-  register(model: any) {
-    return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
+  register(userCreds: UserRegister) {
+    return this.http.post<User>(this.baseUrl + 'account/register', userCreds).pipe(
       map((user) => {
         if (user) {
           this.setCurrentUser(user);

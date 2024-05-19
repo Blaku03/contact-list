@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environmentDev} from "../../../environment/environment.development";
-import {basicUserData} from "../../_models/basicUserData";
+import {BasicUserData} from "../../_models/basicUserData";
 import {AccountService} from "../../_services/account.service";
 
 @Component({
@@ -12,7 +12,7 @@ import {AccountService} from "../../_services/account.service";
 export class UserAlbumComponent implements OnInit {
 
   baseUrl = environmentDev.apiUrl;
-  allUsers: basicUserData[] = [];
+  allUsers: BasicUserData[] = [];
 
   constructor(private http: HttpClient, public accountService: AccountService) {
   }
@@ -23,7 +23,7 @@ export class UserAlbumComponent implements OnInit {
 
   getAllUsers() {
     this.http.get(this.baseUrl + 'users').subscribe(users => {
-      this.allUsers = users as basicUserData[];
+      this.allUsers = users as BasicUserData[];
     });
   }
 }

@@ -1,1 +1,79 @@
-<p>register works!</p>
+<main class="form-signing w-100 m-auto">
+  <form class="sign-in-form"
+        (ngSubmit)="register()"
+        autocomplete="off"
+        *ngIf="!(accountService.currentUser$ | async)"
+  >
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="floatingUsername" placeholder="Username"
+             [(ngModel)]="userCreds.userName" name="userName">
+      <label for="floatingUsername">Username</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="email" class="form-control" id="floatingEmail" placeholder="Email"
+             [(ngModel)]="userCreds.email" name="email">
+      <label for="floatingEmail">Email</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="floatingName" placeholder="Name"
+             [(ngModel)]="userCreds.name" name="name">
+      <label for="floatingName">Name</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="floatingSurname" placeholder="Surname"
+             [(ngModel)]="userCreds.surname" name="surname">
+      <label for="floatingSurname">Surname</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="floatingPhone" placeholder="Phone Number"
+             [(ngModel)]="userCreds.phoneNumber" name="phoneNumber" (keydown)="onKeyDown($event)" maxlength="9">
+      <label for="floatingPhone">Phone Number</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="date" class="form-control" id="floatingDateOfBirth" placeholder="Date of Birth"
+             [(ngModel)]="userCreds.dateOfBirth" name="dateOfBirth">
+      <label for="floatingDateOfBirth">Date of Birth</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+             [(ngModel)]="userCreds.password" name="password">
+      <label for="floatingPassword">Password</label>
+    </div>
+    <div class="form-floating mb-3">
+      <div class="btn-group" dropdown>
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle shadow-sm"
+                aria-controls="dropdown-basic">
+          <span>{{ userCreds.category }}</span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+            role="menu" aria-labelledby="button-basic">
+          <li role="menuitem" *ngFor="let category of categories">
+            <a class="dropdown-item" (click)="selectCategory(category)"> {{ category }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="form-floating mb-3" *ngIf="userCreds.category == 'Business'">
+      <div class="btn-group" dropdown>
+        <button id="button-business" dropdownToggle type="button" class="btn btn-primary dropdown-toggle shadow-sm"
+                aria-controls="dropdown-business">
+          <span>{{ userCreds.subcategory }}</span>
+        </button>
+        <ul id="dropdown-business" *dropdownMenu class="dropdown-menu"
+            role="menu" aria-labelledby="button-business">
+          <li role="menuitem" *ngFor="let subcategory of businessSubcategories">
+            <a class="dropdown-item" (click)="selectSubcategory(subcategory)"> {{ subcategory }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="form-floating mb-3" *ngIf="userCreds.category == 'Other'">
+      <input type="text" class="form-control" id="floatingSubcategory" placeholder="Subcategory"
+             [(ngModel)]="userCreds.subcategory" name="subcategory">
+      <label for="floatingSubcategory">Subcategory</label>
+    </div>
+
+    <button class="btn btn-primary w-100 py-2" type="submit">Sign up</button>
+  </form>
+  <div *ngFor="let error of loginErrors" class="alert alert-danger">{{ error }}</div>
+</main>

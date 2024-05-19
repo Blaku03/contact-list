@@ -1,4 +1,4 @@
-export interface basicUserData {
+export interface BasicUserData {
   userName: string;
   name: string;
   surname: string;
