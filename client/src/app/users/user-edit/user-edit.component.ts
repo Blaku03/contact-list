@@ -5,6 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {UserFormDataService} from "../../_services/user-form-data.service";
 import {BusinessSubcategories, Category} from "../../_models/categoriesEnum";
 import {AccountService} from "../../_services/account.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-user-edit',
@@ -19,7 +20,7 @@ export class UserEditComponent implements OnInit {
   categories = Object.values(Category);
   businessSubcategories = Object.values(BusinessSubcategories);
 
-  constructor(private route: ActivatedRoute, private userFormDataService: UserFormDataService, public accountService: AccountService) {
+  constructor(private route: ActivatedRoute, private userFormDataService: UserFormDataService, public accountService: AccountService, private http: HttpClient) {
   }
 
   ngOnInit() {
@@ -50,5 +51,12 @@ export class UserEditComponent implements OnInit {
     if (!this.validForm()) {
       return;
     }
+    console.log("Saving user")
+    this.http.put(this.baseUrl + 'users/' + this.userData.id, this.userData).subscribe({
+      next: () => {
+        this.saveErrors = ['User updated successfully!'];
+        this.userFormDataService.getUserData(this.userData, this.searchQuery, this.baseUrl);
+      }
+    });
   }
 }

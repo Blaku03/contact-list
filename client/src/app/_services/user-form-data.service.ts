@@ -22,8 +22,8 @@ export class UserFormDataService {
 
     if ('password' in userCreds) {
       const passwordLength = userCreds.password.length;
-      if (passwordLength < 4 || passwordLength > 8) {
-        loginErrors.push('Password should be between 4 and 8 characters');
+      if (passwordLength < 4 || passwordLength > 16) {
+        loginErrors.push('Password should be between 4 and 16 characters');
         formInvalid = true;
       }
     }

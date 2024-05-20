@@ -4,6 +4,7 @@ import {environmentDev} from "../../../environment/environment.development";
 import {BasicUserData} from "../../_models/basicUserData";
 import {AccountService} from "../../_services/account.service";
 import {Router} from "@angular/router";
+import {map} from "rxjs";
 
 @Component({
   selector: 'app-user-album',
@@ -34,5 +35,15 @@ export class UserAlbumComponent implements OnInit {
 
   editUser(userName: string) {
     this.router.navigate(['/users/edit/', userName]);
+  }
+
+  addNewUser() {
+    this.router.navigate(['/register']);
+  }
+
+  removeUser(id: number) {
+    this.http.delete(this.baseUrl + 'users/' + id).subscribe(() => {
+      this.getAllUsers();
+    });
   }
 }

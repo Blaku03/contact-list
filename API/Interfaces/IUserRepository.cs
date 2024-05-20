@@ -16,4 +16,6 @@ public interface IUserRepository
     Task<DetailedUserDataDTO?> GetDetailedUserDataByUserNameAsync(string username);
 
     Task<User?> GetUserByUserNameAsync(string username);
+    Task<User?> GetUserByIdAsync(int id);
+    Task DeleteUserAsync(int result);
 }

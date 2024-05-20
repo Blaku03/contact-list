@@ -11,12 +11,12 @@ public class RegisterDTO
     [Required] public string Surname { get; set; }
     [Required] public string Email { get; set; }
     [Required] public string Category { get; set; }
-    public string SubCategory { get; set; } // SubCategory will be empty in case of private category
+    public string? SubCategory { get; set; } // SubCategory will be empty in case of private category
     [Required] public string PhoneNumber { get; set; }
 
     [Required] public DateOnly? DateOfBirth { get; set; }
 
     [Required]
-    [StringLength(8, MinimumLength = 4)]
+    [StringLength(16, MinimumLength = 4)]
     public string Password { get; set; }
 }

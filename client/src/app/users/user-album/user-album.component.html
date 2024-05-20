@@ -9,9 +9,13 @@
             <p class="card-text"><strong>Surname:</strong> {{ user.surname }}</p>
             <div class="d-flex justify-content-between align-items-center no-right-padding">
               <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary" (click)="viewUser(user.userName)">View</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" (click)="viewUser(user.userName)">View
+                </button>
                 <button type="button" class="btn btn-sm btn-outline-secondary"
-                        *ngIf="(accountService.currentUser$ | async)">Remove
+                        *ngIf="(accountService.currentUser$ | async)?.userName !== user.userName"
+                        (click)="removeUser(user.id)"
+                >
+                  Remove
                 </button>
                 <button type="button" class="btn btn-sm btn-outline-secondary"
                         *ngIf="(accountService.currentUser$ | async)" (click)="editUser(user.userName)">Edit
@@ -21,6 +25,9 @@
           </div>
         </div>
       </div>
+      <button class="btn btn-primary" *ngIf="(accountService.currentUser$ | async)" (click)="addNewUser()">Add new
+        user
+      </button>
     </div>
     <div *ngIf="allUsers.length === 0" class="alert alert-info">
       There are no users in the database.

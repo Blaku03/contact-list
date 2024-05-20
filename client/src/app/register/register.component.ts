@@ -40,7 +40,6 @@ export class RegisterComponent {
     if (!this.validForm()) {
       return;
     }
-    console.log(this.userCreds);
     this.accountService.register(this.userCreds).subscribe({
       next: () => this.router.navigateByUrl('/'),
       error: (err) => {

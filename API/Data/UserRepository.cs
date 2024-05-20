@@ -55,4 +55,21 @@ public class UserRepository : IUserRepository
             .Where(x => x.UserName == username)
             .SingleOrDefaultAsync();
     }
+
+    public async Task<User?> GetUserByIdAsync(int id)
+    {
+        return await _context.Users
+            .Where(x => x.Id == id)
+            .SingleOrDefaultAsync();
+    }
+
+    public async Task DeleteUserAsync(int id)
+    {
+        var user = await _context.Users.Where(x => x.Id == id).SingleOrDefaultAsync();
+        if (user != null)
+        {
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+        }
+    }
 }
