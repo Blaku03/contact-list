@@ -38,12 +38,14 @@ public class AccountController : ControllerBase
 
         var user = _mapper.Map<User>(registerDto);
 
+        // Hashing the password
         user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password));
         user.PasswordSalt = hmac.Key;
 
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
+        // Creating a token for the user
         return new UserDTO
         {
             Id = user.Id,

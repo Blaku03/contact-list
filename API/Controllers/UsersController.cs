@@ -26,7 +26,6 @@ public class UsersController : ControllerBase
         return Ok(await _userRepository.GetUsersBasicDataAsync());
     }
 
-    [Authorize]
     [HttpGet("{query}")] // api/users/{id or username}
     public async Task<ActionResult<DetailedUserDataDTO>> GetUser(string query)
     {

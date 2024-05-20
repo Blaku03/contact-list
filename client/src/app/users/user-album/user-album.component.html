@@ -11,12 +11,14 @@
               <div class="btn-group">
                 <button type="button" class="btn btn-sm btn-outline-secondary" (click)="viewUser(user.userName)">View
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary"
-                        *ngIf="(accountService.currentUser$ | async)?.userName !== user.userName"
-                        (click)="removeUser(user.id)"
-                >
-                  Remove
-                </button>
+                <ng-container *ngIf="accountService.currentUser$ | async as currentUser">
+                  <button type="button" class="btn btn-sm btn-outline-secondary"
+                          *ngIf="currentUser && currentUser.userName !== user.userName"
+                          (click)="removeUser(user.id)"
+                  >
+                    Remove
+                  </button>
+                </ng-container>
                 <button type="button" class="btn btn-sm btn-outline-secondary"
                         *ngIf="(accountService.currentUser$ | async)" (click)="editUser(user.userName)">Edit
                 </button>

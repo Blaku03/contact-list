@@ -37,7 +37,7 @@ public class UserRepository : IUserRepository
     {
         return await _context.Users
             .Where(x => x.Id == id)
-            .ProjectTo<DetailedUserDataDTO>(_mapper.ConfigurationProvider)
+            .ProjectTo<DetailedUserDataDTO>(_mapper.ConfigurationProvider) //ProjectTo is a method from AutoMapper
             .SingleOrDefaultAsync();
     }
 
