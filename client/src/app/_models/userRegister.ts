@@ -9,7 +9,7 @@ export interface UserRegister {
   dateOfBirth: string;
   password: string;
   category: Category;
-  subcategory?: string;
+  subCategory?: string;
 }
 
 export function createDefaultUserRegister(): UserRegister {

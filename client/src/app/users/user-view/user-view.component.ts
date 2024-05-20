@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {DetailedUserData} from "../../_models/detailedUserData";
-import {HttpClient} from "@angular/common/http";
+import {createDefaultDetailedUserData, DetailedUserData} from "../../_models/detailedUserData";
 import {environmentDev} from "../../../environment/environment.development";
+import {UserFormDataService} from "../../_services/user-form-data.service";
 
 @Component({
   selector: 'app-user-view',
@@ -10,25 +10,17 @@ import {environmentDev} from "../../../environment/environment.development";
   styleUrls: ['./user-view.component.css']
 })
 export class UserViewComponent implements OnInit {
-  userName: string | null = null;
-  userData: DetailedUserData | null = null;
+  searchQuery: string | null = null;
+  userData: DetailedUserData = createDefaultDetailedUserData();
   baseUrl = environmentDev.apiUrl;
 
-
-  constructor(private route: ActivatedRoute, private http: HttpClient) {
+  constructor(private route: ActivatedRoute, private userFormDataService: UserFormDataService) {
   }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.userName = params.get('id');
-      this.getUserData();
-    });
-  }
-
-  getUserData() {
-    this.http.get<DetailedUserData>(this.baseUrl + 'users/' + this.userName).subscribe(data => {
-      this.userData = data;
-      console.log(this.userData);
+      this.searchQuery = params.get('query');
+      this.userFormDataService.getUserData(this.userData, this.searchQuery, this.baseUrl);
     });
   }
 }

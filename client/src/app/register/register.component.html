@@ -57,7 +57,7 @@
       <div class="btn-group" dropdown>
         <button id="button-business" dropdownToggle type="button" class="btn btn-primary dropdown-toggle shadow-sm"
                 aria-controls="dropdown-business">
-          <span>{{ userCreds.subcategory }}</span>
+          <span>{{ userCreds.subCategory }}</span>
         </button>
         <ul id="dropdown-business" *dropdownMenu class="dropdown-menu"
             role="menu" aria-labelledby="button-business">
@@ -69,7 +69,7 @@
     </div>
     <div class="form-floating mb-3" *ngIf="userCreds.category == 'Other'">
       <input type="text" class="form-control" id="floatingSubcategory" placeholder="Subcategory"
-             [(ngModel)]="userCreds.subcategory" name="subcategory">
+             [(ngModel)]="userCreds.subCategory" name="subcategory">
       <label for="floatingSubcategory">Subcategory</label>
     </div>
 

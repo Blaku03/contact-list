@@ -13,6 +13,7 @@ import {LoginComponent} from './login/login.component';
 import {UserAlbumComponent} from './users/user-album/user-album.component';
 import {UserViewComponent} from './users/user-view/user-view.component';
 import {BsDropdownModule} from "ngx-bootstrap/dropdown";
+import { UserEditComponent } from './users/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {BsDropdownModule} from "ngx-bootstrap/dropdown";
     LoginComponent,
     UserAlbumComponent,
     UserViewComponent,
+    UserEditComponent,
   ],
   imports: [
     BrowserModule,

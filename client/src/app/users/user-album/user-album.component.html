@@ -14,7 +14,7 @@
                         *ngIf="(accountService.currentUser$ | async)">Remove
                 </button>
                 <button type="button" class="btn btn-sm btn-outline-secondary"
-                        *ngIf="(accountService.currentUser$ | async)">Edit
+                        *ngIf="(accountService.currentUser$ | async)" (click)="editUser(user.userName)">Edit
                 </button>
               </div>
             </div>

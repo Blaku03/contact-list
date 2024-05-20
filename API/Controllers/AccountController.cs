@@ -46,6 +46,7 @@ public class AccountController : ControllerBase
 
         return new UserDTO
         {
+            Id = user.Id,
             UserName = user.UserName,
             Token = _tokenService.CreateToken(user)
         };
@@ -71,6 +72,7 @@ public class AccountController : ControllerBase
 
         return new UserDTO
         {
+            Id = user.Id,
             UserName = user.UserName,
             Token = _tokenService.CreateToken(user)
         };

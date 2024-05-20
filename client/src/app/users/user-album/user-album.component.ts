@@ -29,6 +29,10 @@ export class UserAlbumComponent implements OnInit {
   }
 
   viewUser(userName: string) {
-    this.router.navigate(['/users/', userName]);
+    this.router.navigate(['/users/view/', userName]);
+  }
+
+  editUser(userName: string) {
+    this.router.navigate(['/users/edit/', userName]);
   }
 }

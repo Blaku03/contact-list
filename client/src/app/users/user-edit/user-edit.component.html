@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card" *ngIf="(userData) && (accountService.currentUser$ | async)">
+        <div class="card-body">
+          <h5 class="card-title">Edit User Information</h5>
+          <form
+            (ngSubmit)="save()"
+            autocomplete="off"
+          >
+            <div class="form-group">
+              <label for="userName">Username</label>
+              <input type="text" class="form-control" id="userName" [(ngModel)]="userData.userName" name="userName">
+            </div>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" [(ngModel)]="userData.name" name="name">
+            </div>
+            <div class="form-group">
+              <label for="surname">Surname</label>
+              <input type="text" class="form-control" id="surname" [(ngModel)]="userData.surname" name="surname">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" [(ngModel)]="userData.email" name="email">
+            </div>
+            <div class="form-group">
+              <label for="phoneNumber">Phone Number</label>
+              <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="userData.phoneNumber"
+                     name="phoneNumber" (keydown)="onKeyDown($event)" maxlength="9">
+            </div>
+            <div class="form-group">
+              <label for="birthDate">Birth Date</label>
+              <input type="date" class="form-control" id="birthDate" [(ngModel)]="userData.dateOfBirth"
+                     name="birthDate">
+            </div>
+            <div class="form-floating mb-3">
+              <div class="btn-group" dropdown>
+                <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle shadow-sm"
+                        aria-controls="dropdown-basic">
+                  <span>{{ userData.category }}</span>
+                </button>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                    role="menu" aria-labelledby="button-basic">
+                  <li role="menuitem" *ngFor="let category of categories">
+                    <a class="dropdown-item" (click)="selectCategory(category)"> {{ category }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="form-floating mb-3" *ngIf="userData.category == 'Business'">
+              <div class="btn-group" dropdown>
+                <button id="button-business" dropdownToggle type="button"
+                        class="btn btn-primary dropdown-toggle shadow-sm"
+                        aria-controls="dropdown-business">
+                  <span>{{ userData.subCategory }}</span>
+                </button>
+                <ul id="dropdown-business" *dropdownMenu class="dropdown-menu"
+                    role="menu" aria-labelledby="button-business">
+                  <li role="menuitem" *ngFor="let subcategory of businessSubcategories">
+                    <a class="dropdown-item" (click)="selectSubcategory(subcategory)"> {{ subcategory }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="form-floating mb-3" *ngIf="userData.category == 'Other'">
+              <input type="text" class="form-control" id="floatingSubcategory" placeholder="Subcategory"
+                     [(ngModel)]="userData.subCategory" name="subcategory">
+              <label for="floatingSubcategory">Subcategory</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div *ngFor="let error of saveErrors" class="alert alert-danger">{{ error }}</div>
+  </div>
+</div>

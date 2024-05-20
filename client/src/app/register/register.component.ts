@@ -3,6 +3,7 @@ import {createDefaultUserRegister, UserRegister} from "../_models/userRegister";
 import {Router} from "@angular/router";
 import {AccountService} from "../_services/account.service";
 import {BusinessSubcategories, Category} from "../_models/categoriesEnum";
+import {UserFormDataService} from "../_services/user-form-data.service";
 
 @Component({
   selector: 'app-register',
@@ -15,61 +16,24 @@ export class RegisterComponent {
   categories = Object.values(Category);
   businessSubcategories = Object.values(BusinessSubcategories)
 
-  constructor(public accountService: AccountService, private router: Router) {
+  constructor(public accountService: AccountService, private router: Router, private userFormDataService: UserFormDataService) {
   }
 
   validForm(): boolean {
-    const passwordLength = this.userCreds.password.length;
-    let formInvalid = false;
-    this.loginErrors = [];
-
-    if (!this.isValidEmail(this.userCreds.email)) {
-      this.loginErrors.push('Invalid email');
-      formInvalid = true;
-    }
-
-    if (passwordLength < 4 || passwordLength > 8) {
-      this.loginErrors.push('Password should be between 4 and 8 characters');
-      formInvalid = true;
-    }
-
-    if (this.userCreds.phoneNumber.length !== 9) {
-      this.loginErrors.push('Phone number should be 9 characters');
-      formInvalid = true;
-    }
-
-    return !formInvalid;
+    return this.userFormDataService.validForm(this.loginErrors, this.userCreds);
   }
 
   // Function to disable non-numeric keys
   onKeyDown(event: KeyboardEvent) {
-    const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'];
-    const isAllowedKey = allowedKeys.includes(event.key);
-
-    // Check if the key is a number
-    const isNumeric = /\d/.test(event.key);
-
-    // If the key is not allowed, prevent the default action
-    if (!isAllowedKey && !isNumeric) {
-      event.preventDefault();
-    }
-  }
-
-  isValidEmail(email: string): boolean {
-    // Could use some complex regex here, but this is good enough for now
-    return email.includes('@');
+    this.userFormDataService.onKeyDown(event);
   }
 
   selectCategory(category: string) {
-    this.userCreds.category = category as Category;
-    this.userCreds.subcategory = '';
-    if (category == Category.Business) {
-      this.userCreds.subcategory = BusinessSubcategories.Client;
-    }
+    return this.userFormDataService.selectCategory(category, this.userCreds);
   }
 
   selectSubcategory(subcategory: string) {
-    this.userCreds.subcategory = subcategory;
+    this.userCreds.subCategory = subcategory;
   }
 
   register() {
